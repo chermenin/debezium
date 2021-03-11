@@ -1029,7 +1029,7 @@ public class PostgresValueConverter extends JdbcValueConverters {
     @Override
     protected Object handleUnknownData(Column column, Field fieldDefn, Object data) {
         if (data == UnchangedToastedReplicationMessageColumn.UNCHANGED_TOAST_VALUE) {
-            return toastPlaceholderString;
+            return data;
         }
         return super.handleUnknownData(column, fieldDefn, data);
     }

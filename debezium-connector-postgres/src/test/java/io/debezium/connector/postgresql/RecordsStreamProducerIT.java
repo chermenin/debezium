@@ -1417,8 +1417,12 @@ public class RecordsStreamProducerIT extends AbstractRecordsProducerTest {
                 + "ALTER TABLE test_table ADD COLUMN mandatory_text TEXT NOT NULL DEFAULT '';"
                 + "ALTER TABLE test_table ALTER COLUMN mandatory_text SET STORAGE EXTENDED;"
                 + "ALTER TABLE test_table ALTER COLUMN mandatory_text SET DEFAULT '" + toastedValue3 + "';"
-                + "INSERT INTO test_table (not_toast, text, mandatory_text) values (10, '" + toastedValue1 + "', '" + toastedValue1 + "');"
-                + "INSERT INTO test_table (not_toast, text, mandatory_text) values (10, '" + toastedValue2 + "', '" + toastedValue2 + "');";
+                + "ALTER TABLE test_table ADD COLUMN toasted_integer_array integer[] NOT NULL DEFAULT ARRAY[];"
+                + "ALTER TABLE test_table ALTER COLUMN toasted_integer_array SET STORAGE EXTENDED;"
+                + "INSERT INTO test_table (not_toast, text, mandatory_text, toasted_integer_array) "
+                + "VALUES (10, '" + toastedValue1 + "', '" + toastedValue1 + "', ARRAY[1, 2]);"
+                + "INSERT INTO test_table (not_toast, text, mandatory_text, toasted_integer_array) "
+                + "VALUES (10, '" + toastedValue2 + "', '" + toastedValue2 + "', ARRAY[2, 3]);";
         consumer = testConsumer(2);
         executeAndWait(statement);
 
